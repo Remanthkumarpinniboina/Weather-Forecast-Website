@@ -13,9 +13,8 @@ app.use(express.json());
 
 app.get("/weather", async (req, res) => {
     const { city } = req.query;
-    if (!city) {
-        return res.status(400).json({ error: "City is required" });
-    }
+    if (!city) return res.status(400).json({ error: "City is required" });
+
     try {
         const response = await axios.get(`${API_URL}?q=${city}&units=metric&appid=${API_KEY}`);
         res.json(response.data);
@@ -24,6 +23,4 @@ app.get("/weather", async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
